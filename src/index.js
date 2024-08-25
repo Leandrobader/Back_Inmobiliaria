@@ -9,7 +9,7 @@ const app=express();
 
 //configuramos acceso a variables de entorno con dotenv
 require('dotenv').config()
-console.log(process.env.PORT)
+// console.log(process.env.PORT) "de esta forma podemos acceder al valor del puerto del .env"
 
 //configuracion de puerto del servidor
 app.set("port", process.env.PORT || 4000);
