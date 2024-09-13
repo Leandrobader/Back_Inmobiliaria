@@ -3,13 +3,18 @@ const express = require("express");
 const cors= require("cors");
 const morgan= require("morgan");
 const path= require("path");
-
+const databaseConnection= require("./databaseConnection.js")
+const UserRoutes=require("./routes/UserRoutes.js");
 //Instancia de express
 const app=express();
+
+
 
 //configuramos acceso a variables de entorno con dotenv
 require('dotenv').config()
 // console.log(process.env.PORT) "de esta forma podemos acceder al valor del puerto del .env"
+
+databaseConnection();
 
 //configuracion de puerto del servidor
 app.set("port", process.env.PORT || 4000);
@@ -29,12 +34,15 @@ app.use(cors()); //para permitir peticiones remotas
 console.log(__dirname, "DIRNAME"); //nos dice donde está alojado el proyecto
 app.use(express.static(path.join(__dirname, "../public")));
 
+
+UserRoutes("/users", app);
+
 //RUTA DE PRUEBA
 
 app.get("/test", async(req, res, next)=>{
     try {
         console.log("request -->", req);
-        return res.status(200).json({success:true, message:"API IS ALIVE"});
+        return res.status(200).json({success:true, message:"API IS ALIVEE"});
     } catch (error) {
         console.error(error);
         next(error)
